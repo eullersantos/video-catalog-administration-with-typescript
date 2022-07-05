@@ -2,6 +2,6 @@ FROM node:18.4.0-slim
 
 USER node
 
-WORKDIR /home/node/app
+WORKDIR /home/node/catalog-videos
 
-CMD [ "sh", "-c", "npm i && tall -f /dev/null" ]
+CMD [ "sh", "-c", "npm i && tail -f /dev/null" ]
