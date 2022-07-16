@@ -1,8 +1,20 @@
-describe("Category Tests", () => {
-  test("First Test", () => {
-    const a = 5
-    const b = 5
-    const c = a + b
-    expect(c).toBe(10)
-  })
-})
+import { Category } from "./category";
+
+describe("Category Unit Tests", () => {
+  test("constructor of category", () => {
+    const created_at = new Date()
+    const category = new Category({
+      name: "Movie",
+      description: "Description",
+      is_active: true,
+      created_at,
+    });
+
+    expect(category.props).toStrictEqual({
+      name: "Movie",
+      description: "Description",
+      is_active: true,
+      created_at,
+    })
+  });
+});
