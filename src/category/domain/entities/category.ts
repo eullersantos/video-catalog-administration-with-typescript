@@ -7,9 +7,9 @@ export type CategoryProperties = {
 
 export class Category {
   constructor(public readonly props: CategoryProperties) {
-    this.props.description = this.props.description ?? null;
-    this.props.is_active = this.props.is_active ?? true;
-    this.props.created_at = this.props.created_at ?? new Date();
+    this.description = this.props.description ?? null;
+    this.is_active = this.props.is_active;
+    this.created_at = this.props.created_at;
   }
 
   get name() {
@@ -20,11 +20,23 @@ export class Category {
     return this.props.description;
   }
 
+  private set description(description: string) {
+    this.props.description = description ?? null;
+  }
+
   get is_active() {
     return this.props.is_active;
   }
 
+  private set is_active(value: boolean) {
+    this.props.is_active = value ?? true;
+  }
+
   get created_at() {
     return this.props.created_at;
+  }
+
+  private set created_at(date: Date) {
+    this.props.created_at = date ?? new Date();
   }
 }
