@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { validate as uuidValidate } from "uuid";
 
 describe("Category Unit Tests", () => {
   test("constructor of category", () => {
@@ -71,6 +72,21 @@ describe("Category Unit Tests", () => {
       created_at
     })
   });
+
+  test("id field", () => {
+    const data = [
+      { props: { name: 'Movie' } },
+      { props: { name: 'Movie' }, id: null },
+      { props: { name: 'Movie' }, id: undefined },
+      { props: { name: 'Movie' }, id: 'c73e2a73-cbc0-4a87-b90e-8278c550d8eb' },
+    ]
+
+    data.forEach(i => {
+      let category = new Category(i.props, i.id);
+      expect(category.id).not.toBeNull();
+      expect(uuidValidate(category.id)).toBeTruthy();
+    })
+  })
 
   test("getter of name props", () => {
     const category = new Category({ name: 'Movie' })
