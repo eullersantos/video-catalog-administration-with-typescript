@@ -9,6 +9,7 @@ export type CategoryProperties = {
 
 export class Category {
   public readonly id: string;
+  
   constructor(public readonly props: CategoryProperties, id?: string) {
     this.id = id ?? uuidv4();
     this.description = this.props.description;
