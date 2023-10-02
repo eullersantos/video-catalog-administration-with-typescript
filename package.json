@@ -20,6 +20,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "class-validator": "^0.14.0",
+    "install": "^0.13.0",
     "lodash": "^4.17.21",
     "uuid": "^9.0.1"
   }
