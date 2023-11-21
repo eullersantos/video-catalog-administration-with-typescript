@@ -1,6 +1,5 @@
 import { CategoryModel } from "../category.model";
 import { CategorySequelizeRepository } from "../category-sequelize.repository";
-import { Category, CategoryId } from "../../../../domain/category.aggregate";
 import { NotFoundError } from "../../../../../shared/domain/errors/not-found.error";
 import { CategoryModelMapper } from "../category-model-mapper";
 import {
@@ -8,6 +7,8 @@ import {
   CategorySearchResult,
 } from "../../../../domain/category.repository";
 import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
+import { Category } from "../../../../domain/category.entity";
+import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
 
 describe("CategorySequelizeRepository Integration Test", () => {
   let repository: CategorySequelizeRepository;
@@ -25,7 +26,7 @@ describe("CategorySequelizeRepository Integration Test", () => {
   });
 
   it("should finds a entity by id", async () => {
-    let entityFound = await repository.findById(new CategoryId());
+    let entityFound = await repository.findById(new Uuid());
     expect(entityFound).toBeNull();
 
     const entity = Category.fake().aCategory().build();
@@ -61,9 +62,9 @@ describe("CategorySequelizeRepository Integration Test", () => {
   });
 
   it("should throw error on delete when a entity not found", async () => {
-    const categoryId = new CategoryId();
-    await expect(repository.delete(categoryId)).rejects.toThrow(
-      new NotFoundError(categoryId.id, Category)
+    const Uuid = new Uuid();
+    await expect(repository.delete(Uuid)).rejects.toThrow(
+      new NotFoundError(Uuid.id, Category)
     );
   });
 
@@ -115,9 +116,11 @@ describe("CategorySequelizeRepository Integration Test", () => {
       const created_at = new Date();
       const categories = Category.fake()
         .theCategories(16)
-        .withName((index) => `Movie ${index}`)
+        .withName((index: number) => `Movie ${index}`)
         .withDescription(null)
-        .withCreatedAt((index) => new Date(created_at.getTime() + index))
+        .withCreatedAt(
+          (index: number) => new Date(created_at.getTime() + index)
+        )
         .build();
       const searchOutput = await repository.search(new CategorySearchParams());
       const items = searchOutput.items;
