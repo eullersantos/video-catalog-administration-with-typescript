@@ -6,9 +6,9 @@ import {
   CategorySearchParams,
   CategorySearchResult,
 } from "../../../../domain/category.repository";
-import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 import { Category } from "../../../../domain/category.entity";
 import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
+import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 
 describe("CategorySequelizeRepository Integration Test", () => {
   let repository: CategorySequelizeRepository;
@@ -62,9 +62,9 @@ describe("CategorySequelizeRepository Integration Test", () => {
   });
 
   it("should throw error on delete when a entity not found", async () => {
-    const Uuid = new Uuid();
-    await expect(repository.delete(Uuid)).rejects.toThrow(
-      new NotFoundError(Uuid.id, Category)
+    const uuid = new Uuid();
+    await expect(repository.delete(uuid)).rejects.toThrow(
+      new NotFoundError(uuid.id, Category)
     );
   });
 
